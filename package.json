@@ -1,0 +1,30 @@
+{
+  "name": "fs-promise2",
+  "version": "1.0.0",
+  "description": "fs module methode  as promises with nice error handler",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "file",
+    "filestream"
+  ],
+  "author": "Moussa Ndour <moussa_ndour@hotmail.fr>",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidsonAidson/fs-promise2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sidsonAidson/fs-promise2/issues"
+  },
+  "homepage": "https://github.com/sidsonAidson/fs-promise2#readme"
+}
