@@ -11,7 +11,11 @@
   },
   "keywords": [
     "file",
-    "filestream"
+    "filestream",
+    "promise",
+    "fs",
+    "fs-promise",
+    "directory"
   ],
   "author": "Moussa Ndour <moussa_ndour@hotmail.fr>",
   "license": "ISC",
