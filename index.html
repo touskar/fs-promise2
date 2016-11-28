@@ -1,0 +1,678 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Fs-promise2 by sidsonAidson</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="without-description">
+        <h1>Fs-promise2</h1>
+        <p></p>
+        <p class="view"><a href="https://github.com/sidsonAidson/fs-promise2">View the Project on GitHub <small>sidsonAidson/fs-promise2</small></a></p>
+        <ul>
+          <li><a href="https://github.com/sidsonAidson/fs-promise2/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/sidsonAidson/fs-promise2/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/sidsonAidson/fs-promise2">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="fs-promise2---fs-module-methode--as-promises-with-nice-error-handler" class="anchor" href="#fs-promise2---fs-module-methode--as-promises-with-nice-error-handler" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>fs-promise2 - fs module methode  as promises with nice error handler</h1>
+
+<p>fs module methode  as promises with nice error handler.
+All fs-promise2 methods take the same argument as their namesake methode of fs module
+<a href="https://nodejs.org/api/fs.html">https://nodejs.org/api/fs.html</a>
+<a href="http://sidsonaidson.github.io/fs-promise2/">http://sidsonaidson.github.io/fs-promise2/</a>.</p>
+
+<ul>
+<li>Tags: node.js, fs</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<pre><code>npm install fs-promise2
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">let</span> FileManager <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs-promise2<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">let</span> <span class="pl-c1">File</span> <span class="pl-k">=</span> <span class="pl-smi">FileManager</span>.<span class="pl-smi">File</span>;
+<span class="pl-k">let</span> ExceptionManager <span class="pl-k">=</span> <span class="pl-smi">FileManager</span>.<span class="pl-smi">ExceptionManager</span>;
+
+<span class="pl-c1">File</span>.<span class="pl-en">appendFile</span>(<span class="pl-s"><span class="pl-pds">'</span>hello.txt<span class="pl-pds">'</span></span>)
+    .<span class="pl-en">then</span>((<span class="pl-smi">buffer</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>Data added to file<span class="pl-pds">`</span></span>, buffer);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">ArgumentNullException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>Null args passed to function<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">ArgumentException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>illegal args passed to function<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">PathTooLongException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>path exceeds the system-defined maximum length.<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">NotSupportedException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>path is in an invalid format.<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">UnauthorizedAccessException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>no rigth on file<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>(<span class="pl-smi">ExceptionManager</span>.<span class="pl-smi">IOException</span>, (<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>io problem<span class="pl-pds">`</span></span>, e);
+    })
+    .<span class="pl-en">catch</span>((<span class="pl-smi">e</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(e);
+    });</pre></div>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API</h2>
+
+<h2>
+<a id="already-availaible-method" class="anchor" href="#already-availaible-method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Already Availaible method</h2>
+
+<pre><code>fs.access,
+fs.appendFile,
+fs.chmod,
+fs.chown,
+fs.close,
+fs.createReadStream,
+fs.createWriteStream,
+fs.exist,
+fs.fchmod,
+fs.fchown,
+fs.fdatasync,
+fs.fstat, fs.fsync,
+fs.ftruncate,
+fs.futimes, fs.lchmod,
+fs.lchown,
+fs.link,
+fs.lstat,
+fs.mkdir,
+fs.mkdtemp,
+fs.open,
+fs.read,
+fs.readdir,
+fs.readFile,
+fs.readlink,
+fs.realpath,
+fs.rename,
+fs.stat,
+fs.writeFile,
+fs.write
+// next soon
+</code></pre>
+
+<p>fs.write exist in 3 version in fs-promise2:
+File.write,
+File.WriteV002,
+File.writeV0115;
+<a href="https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback">https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback</a>
+and
+<a href="https://nodejs.org/api/fs.html#fs_fs_write_fd_string_position_encoding_callback">https://nodejs.org/api/fs.html#fs_fs_write_fd_string_position_encoding_callback</a></p>
+
+<p>File.write use V002</p>
+
+<h2>
+<a id="exception" class="anchor" href="#exception" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exception</h2>
+
+<pre><code>/**
+ * Illegal argument type passed to function
+ * @type {Error}
+ */
+ArgumentException
+</code></pre>
+
+<pre><code>/**
+ * The file or dir specified by path was not found.
+ * @type {Error}
+ */
+DirectoryOrFileNotFoundException
+</code></pre>
+
+<pre><code>/**
+ * null args passed to function while expected not null
+ * @type {Error}
+ */
+ArgumentNullException
+</code></pre>
+
+<pre><code>/**
+ * the directory doesn’t exist or it is on an unmapped drive.
+ * @type {Error}
+ */
+DirectoryNotFoundException
+</code></pre>
+
+<pre><code>/**
+ * The file specified by path was not found.
+ * @type {Error}
+ */
+FileNotFoundException
+</code></pre>
+
+<pre><code>/**
+ * An I/O error occurred while dealing with file.
+ * @type {Error}
+ */
+IOException
+</code></pre>
+
+<pre><code>/**
+ * path exceeds the system-defined maximum length. For example, on Windows-based platforms,
+ * paths must be less than 248 characters and file names must be less than 260 characters.
+ * @type {Error}
+ */
+PathTooLongException
+</code></pre>
+
+<pre><code>/**
+ * path is in an invalid format.
+ * @type {Error}
+ */
+NotSupportedException
+</code></pre>
+
+<pre><code>/**
+ * DirectoryWhileExpectedFileException, for example passing a directory to appendFile function
+ * @type {Error}
+ */
+DirectoryWhileExpectedFileException
+</code></pre>
+
+<pre><code>/**
+ * FileWhileExpectedDirectoryException
+ * @type {Error}
+ */
+FileWhileExpectedDirectoryException
+</code></pre>
+
+<pre><code>/**
+ * occured when path specifies a file that is read-only.
+ * or have'nt access on file(no rigth)
+ * or operation is not supported on the current platform.
+ * @type {Error}
+ */
+UnauthorizedAccessException
+</code></pre>
+
+<h3>
+<a id="resume" class="anchor" href="#resume" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resume</h3>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path - path of file
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {FileNotFoundException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {SecurityException}
+ * @promise-error {UnauthorizedAccessException}
+ */
+File.access
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number|Buffer|String} file
+ * @param data
+ * @param options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {IOException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ */
+File.appendFile
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {IOException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryNotFoundException}
+ * @promise-error FileWhileExpectedDirectoryException
+ */
+File.chmod
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @param {Number} uid
+ * @param {Number} gid
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error ArgumentNullException
+ * @returns {"bluebird"|any}
+ */
+File.chown
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @returns {"bluebird"|any}
+ * @promise-error {IOException}
+ */
+File.close
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param path
+ * @param {Object|undefined, null} options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ */
+File.createReadStream
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param path
+ * @param {Object|undefined, null} options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ */
+File.createWriteStream
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentNullException
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ */
+File.exist
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {IOException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryNotFoundException}
+ */
+File.fchmod
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @param {Number} uid
+ * @param {Number} gid
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentNullException
+ * @promise-error ArgumentException
+ * @promise-error FileNotFoundException
+ * @promise-error IOException
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error ArgumentNullException
+ */
+File.fchown
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.fdatasync
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.fstat
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.fsync
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Number} len
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ */
+File.ftruncate
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Number} atime
+ * @param {Number} mtime
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.futimes
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.lchmod
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Number} uid
+ * @param {Number} gid
+ * @returns {"bluebird"|any}
+ * @promise-error IOException
+ * @promise-error ArgumentException
+ */
+File.lchown
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} existingPath
+ * @param {String|Buffer} newPath
+ * @returns {"bluebird"|any}
+ * @promise-error  {IOException}
+ * @promise-error  {ArgumentException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {ArgumentNullException}
+ */
+File.link
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path - path of file
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {FileNotFoundException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {IOException}
+ */
+File.lstat
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path - path of file
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {FileNotFoundException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryNotFoundException}
+ * @promise-error {IOException}
+ */
+File.mkdir
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String} prefix
+ * @param {Object|String} options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {IOException}
+ */
+File.mkdtemp
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @param {String|Buffer} flags
+ * @param {Number} mode
+ * @returns {"bluebird"|any}
+ * @promise-error DirectoryNotFoundException
+ * @promise-error ArgumentException
+ * @promise-error ArgumentNullException
+ * @promise-error DirectoryNotFoundException
+ * @promise-error FileNotFoundException
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ */
+File.open
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Buffer} buffer
+ * @param {Number} offset
+ * @param {Number} length
+ * @param {Number|null?} position
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ */
+File.read
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path - path of file
+ * @param {String|Object} options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {FileNotFoundException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryNotFoundException}
+ * @promise-error {FileWhileExpectedDirectoryException}
+ * @promise-error {IOException}
+ */
+File.readdir
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number|Buffer|String} file
+ * @param options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {IOException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryWhileExpectedFileException}
+ */
+File.readFile
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path - path of file
+ * @param {String|Object} options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {FileNotFoundException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ * @promise-error {DirectoryOrFileNotFoundException}
+ * @promise-error {IOException}
+ */
+File.readlink
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @returns {"bluebird"|any}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ */
+File.realpath
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} existingPath
+ * @param {String|Buffer} newPath
+ * @returns {"bluebird"|any}
+ * @promise-error  {IOException}
+ * @promise-error  {ArgumentException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {ArgumentNullException}
+ * @promise-error UnauthorizedAccessException
+ * @promise-error FileNotFoundException
+ */
+File.rename
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {String|Buffer} path
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentNullException
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ */
+File.stat
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number|Buffer|String} file
+ * @param data
+ * @param options
+ * @returns {"bluebird"|any}
+ * @promise-error {ArgumentNullException}
+ * @promise-error {ArgumentException}
+ * @promise-error {IOException}
+ * @promise-error {PathTooLongException}
+ * @promise-error {NotSupportedException}
+ * @promise-error {UnauthorizedAccessException}
+ */
+File.writeFile
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {String} string
+ * @param {Number|null?} position
+ * @param {String} encoding
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ */
+File.writeV0115
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Buffer} buffer
+ * @param {Number} offset
+ * @param {Number} length
+ * @param {Number|null?} position
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ */
+File.writeV002
+</code></pre>
+
+<pre><code>/**
+ *
+ * @param {Number} fd
+ * @param {Buffer} buffer
+ * @param {Number} offset
+ * @param {Number} length
+ * @param {Number|null?} position
+ * @returns {"bluebird"|any}
+ * @promise-error ArgumentException
+ * @promise-error IOException
+ */
+File.write
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/sidsonAidson">sidsonAidson</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
